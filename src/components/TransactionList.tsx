@@ -27,7 +27,7 @@ export function TransactionList({ transactions, onDeleteTransaction, onEditTrans
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-md border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-shadow duration-300 animate-fade-in">
-      <div className="px-5 py-4 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-white dark:from-slate-800 dark:to-slate-700 flex justify-between items-center">
+      <div className="px-3 sm:px-5 py-3 sm:py-4 border-b border-slate-200 dark:border-slate-700 bg-gradient-to-r from-slate-50 to-white dark:from-slate-800 dark:to-slate-700 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
         <div>
           <h3 className="text-lg font-semibold text-slate-800 dark:text-white">Transactions</h3>
           <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
@@ -35,7 +35,7 @@ export function TransactionList({ transactions, onDeleteTransaction, onEditTrans
           </p>
         </div>
         
-        <div className="relative w-64">
+        <div className="relative w-full sm:w-64">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <Search className="h-4 w-4 text-slate-400 dark:text-slate-500" />
           </div>
@@ -50,23 +50,23 @@ export function TransactionList({ transactions, onDeleteTransaction, onEditTrans
       </div>
       
       {sortedTransactions.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
+        <div className="overflow-x-auto max-w-full scrollbar-thin">
+          <table className="w-full divide-y divide-slate-200 dark:divide-slate-700 table-fixed">
             <thead className="bg-slate-50 dark:bg-slate-700/50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <th scope="col" className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider w-[90px] sm:w-[120px]">
                   Date
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <th scope="col" className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Description
                 </th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider hidden md:table-cell">
+                <th scope="col" className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider hidden md:table-cell w-[120px]">
                   Category
                 </th>
-                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <th scope="col" className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider w-[90px] sm:w-[100px]">
                   Amount
                 </th>
-                <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <th scope="col" className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider w-[60px] sm:w-[90px]">
                   Actions
                 </th>
               </tr>
@@ -82,26 +82,26 @@ export function TransactionList({ transactions, onDeleteTransaction, onEditTrans
                   }`}
                   style={{ transitionDelay: `${index * 50}ms` }}
                 >
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-500 dark:text-slate-400">
                     {format(new Date(transaction.date), 'MMM d, yyyy')}
                   </td>
-                  <td className="px-6 py-4 text-sm text-slate-800 dark:text-white font-medium">
-                    <div>{transaction.description}</div>
-                    <div className="text-xs font-normal text-slate-500 dark:text-slate-400 md:hidden mt-1">{transaction.category}</div>
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-800 dark:text-white font-medium">
+                    <div className="truncate max-w-[120px] sm:max-w-none">{transaction.description}</div>
+                    <div className="text-xs font-normal text-slate-500 dark:text-slate-400 md:hidden mt-1 truncate">{transaction.category}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400 hidden md:table-cell">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-300">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-slate-500 dark:text-slate-400 hidden md:table-cell">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-300">
                       {transaction.category}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
+                  <td className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-xs sm:text-sm text-right">
                     <div className="flex items-center justify-end">
                       {transaction.amount < 0 ? 
-                        <ArrowDownCircle className="h-3.5 w-3.5 mr-1.5 text-red-500 dark:text-red-400" /> : 
-                        <ArrowUpCircle className="h-3.5 w-3.5 mr-1.5 text-green-500 dark:text-green-400" />
+                        <ArrowDownCircle className="h-3.5 w-3.5 mr-1 text-red-500 dark:text-red-400 flex-shrink-0" /> : 
+                        <ArrowUpCircle className="h-3.5 w-3.5 mr-1 text-green-500 dark:text-green-400 flex-shrink-0" />
                       }
                       <span 
-                        className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${
+                        className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold flex-shrink-0 ${
                           transaction.amount < 0 
                             ? 'bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400' 
                             : 'bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400'
@@ -111,21 +111,21 @@ export function TransactionList({ transactions, onDeleteTransaction, onEditTrans
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <div className="flex justify-end space-x-2">
+                  <td className="px-2 sm:px-6 py-3 sm:py-4 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
+                    <div className="flex justify-end space-x-1 sm:space-x-2">
                       <button
                         onClick={() => onEditTransaction(transaction.id)}
-                        className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 p-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800"
+                        className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 p-1 sm:p-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800"
                         aria-label="Edit transaction"
                       >
-                        <Edit className="w-4 h-4" />
+                        <Edit className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </button>
                       <button
                         onClick={() => onDeleteTransaction(transaction.id)}
-                        className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1.5 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors focus:outline-none focus:ring-2 focus:ring-red-200 dark:focus:ring-red-800"
+                        className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1 sm:p-1.5 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors focus:outline-none focus:ring-2 focus:ring-red-200 dark:focus:ring-red-800"
                         aria-label="Delete transaction"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </button>
                     </div>
                   </td>
